@@ -12,6 +12,12 @@ app.use(express.json({limit: '10mb'}));
 
 //Database Uri
 const uri = 'mongodb+srv://dbUser:dbPassword@cluster0.aumo1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+
 mongoose.connect(uri, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true});
 
 const connection = mongoose.connection;
