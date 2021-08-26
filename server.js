@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json({limit: '10mb'}));
 
 //Database Uri
-const uri = process.env.ATLAS_URI;
+const uri = 'mongodb+srv://dbUser:dbPassword@cluster0.aumo1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 mongoose.connect(uri, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true});
 
 const connection = mongoose.connection;
