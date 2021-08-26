@@ -26,10 +26,6 @@ const categoriesRouter = require('./routes/categories');
 const testimonailsRouter = require('./routes/testimonials');
 const projectsRouter = require('./routes/projects')
 
-
-app.use('/',(req,res) => {
-    res.send('Hello to mern exrecise tracker')
-})
 app.use('/slides', slidesRouter);
 app.use('/categories', categoriesRouter);
 app.use('/testimonials', testimonailsRouter);
