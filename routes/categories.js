@@ -2,12 +2,13 @@ const router = require('express').Router();
 let Category = require('../models/category.model');
 let Project = require('../models/project.model');
 
-router.route('/').get(async(req, res) => {
-    const categories = await Category.find();
-    res.json(categories);
+router.route('/').get((req, res) => {
+    Category.find()
+        .then(categories => res.json(categories))
+        .catch(err => res.status(400).json({message: err.message}));
 });
 
-router.route('/').post(async(req, res) => {
+router.route('/').post((req, res) => {
     const _id = req.body._id;
     const title = req.body.title;
     const subTitle = req.body.subTitle;
@@ -21,40 +22,49 @@ router.route('/').post(async(req, res) => {
 
     const newCategory = new Category({_id,title,subTitle,gradientColor,imageLink,videoLink,sectionQuote,sectionTitle,sectionDescription,projects});
 
-    const category = await newCategory.save();
-    res.json(category);
+    newCategory.save()
+        .then((category) => res.json(category))
+        .catch(err => res.status(400).json({message: err.message}));
 });
 
-router.route('/:id').get(async(req, res) => {
-    const category = Category.findById(req.params.id);
-    res.json(category);
+router.route('/:id').get((req, res) => {
+    Category.findById(req.params.id)
+        .then(category => res.json(category))
+        .catch(err => res.status(400).json({message: err.message}));
 });
 
-router.route('/:id').delete(async(req, res) => {
-    const category = await Category.findByIdAndDelete(req.params.id);
-    category.projects.forEach(async(item)=> {
-        var project = await Project.findById(item.id);
-        project.tags.splice(project.tags.findIndex(a => a.id === category.id), 1)
-        await project.save();
-    })
-    res.json(category);
+router.route('/:id').delete((req, res) => {
+    Category.findByIdAndDelete(req.params.id)
+        .then((category) => {
+            category.projects.forEach(async(item)=> {
+                var project = await Project.findById(item.id);
+                project.tags.splice(project.tags.findIndex(a => a.id === category.id), 1)
+                await project.save();
+            })
+            res.json(category)
+        })
+        .catch(err => res.status(400).json({message: err.message}));
 });
 
-router.route('/:id').put(async(req, res) => {
-    const category = await Category.findById(req.params.id);
-    category._id = req.body._id;
-    category.title = req.body.title;
-    category.subTitle = req.body.subTitle;
-    category.gradientColor = req.body.gradientColor;
-    category.imageLink = req.body.imageLink;
-    category.videoLink = req.body.videoLink;
-    category.sectionQuote = req.body.sectionQuote;
-    category.sectionTitle = req.body.sectionTitle;
-    category.sectionDescription = req.body.sectionDescription;
-    category.projects = req.body.projects;
+router.route('/:id').put((req, res) => {
+    Category.findById(req.params.id)
+        .then(category => {
+            category._id = req.body._id;
+            category.title = req.body.title;
+            category.subTitle = req.body.subTitle;
+            category.gradientColor = req.body.gradientColor;
+            category.imageLink = req.body.imageLink;
+            category.videoLink = req.body.videoLink;
+            category.sectionQuote = req.body.sectionQuote;
+            category.sectionTitle = req.body.sectionTitle;
+            category.sectionDescription = req.body.sectionDescription;
+            category.projects = req.body.projects;
 
-    const category2 = await category.save();
-    res.json(category2);
+            category.save()
+                .then((category) => res.json(category))
+                .catch(err => res.status(400).json({message: err.message}));
+        })
+        .catch(err => res.status(400).json({message: err.message}));
 });
 
 module.exports = router;
