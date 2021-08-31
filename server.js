@@ -15,7 +15,9 @@ const slidesRouter = require('./routes/slides');
 const categoriesRouter = require('./routes/categories');
 const testimonailsRouter = require('./routes/testimonials');
 const projectsRouter = require('./routes/projects')
+const homeRouter = require('./routes/home')
 
+app.use('/home', homeRouter);
 app.use('/slides', slidesRouter);
 app.use('/categories', categoriesRouter);
 app.use('/testimonials', testimonailsRouter);
