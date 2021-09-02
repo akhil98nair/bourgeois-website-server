@@ -16,12 +16,14 @@ const categoriesRouter = require('./routes/categories');
 const testimonailsRouter = require('./routes/testimonials');
 const projectsRouter = require('./routes/projects')
 const homeRouter = require('./routes/home')
+const partnersRouter = require('./routes/partners')
 
 app.use('/home', homeRouter);
 app.use('/slides', slidesRouter);
 app.use('/categories', categoriesRouter);
 app.use('/testimonials', testimonailsRouter);
 app.use('/projects', projectsRouter);
+app.use('/partners', partnersRouter);
 
 //Database Uri
 const CONNECTION_URL = 'mongodb+srv://dbUser:dbPassword@cluster0.aumo1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
