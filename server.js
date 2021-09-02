@@ -26,7 +26,7 @@ app.use('/projects', projectsRouter);
 app.use('/partners', partnersRouter);
 
 //Database Uri
-const CONNECTION_URL = 'mongodb+srv://dbUser:dbPassword@cluster0.aumo1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const CONNECTION_URL = process.env.ATLAS_URI;
 
 mongoose.connect(CONNECTION_URL, {useNewUrlParser : true, useUnifiedTopology: true})
     .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
