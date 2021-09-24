@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const projectSchema = new Schema({
     _id: {type: String},
+    projectTitle: { type: String, required: true },
     projectImageLink: { type: String, required: true },
     projectDescription: { type: String, required: true },
     tags: { type: Array, required: true },

@@ -10,6 +10,7 @@ router.route('/').get((req, res) => {
 
 router.route('/').post((req, res) => {
     const _id = req.body._id;
+    const projectTitle = req.body.projectTitle;
     const projectImageLink = req.body.projectImageLink;
     const projectDescription = req.body.projectDescription;
     const tags = req.body.tags;
@@ -24,15 +25,15 @@ router.route('/').post((req, res) => {
     const bodyFontColor = req.body.bodyFontColor;
     const components = req.body.components;
 
-    const newProject = new Project({_id,projectImageLink,projectDescription,tags,client,industry,year,headSectionColor,headFontColor,headSecondaryFontColor,bodySectionColor,bodyTitleColor,bodyFontColor,components});
+    const newProject = new Project({_id,projectTitle,projectImageLink,projectDescription,tags,client,industry,year,headSectionColor,headFontColor,headSecondaryFontColor,bodySectionColor,bodyTitleColor,bodyFontColor,components});
 
     newProject.save()
         .then(project => {
             project.tags.forEach(async(item) => {
                 var category = await Category.findById(item.id);
                 category.projects.push({
-                    id : project.id,
-                    projectTitle : project.id,
+                    id : project._id,
+                    projectTitle : project.projectTitle,
                     projectImageLink : project.projectImageLink,
                     client : project.client,
                     industry : project.industry,
@@ -73,6 +74,7 @@ router.route('/:id').put((req, res) => {
     Project.findById(req.params.id)
         .then(project => {
             project._id = req.body._id;
+            project.projectTitle = req.body.projectTitle;
             project.projectImageLink = req.body.projectImageLink;
             project.projectDescription = req.body.projectDescription;
             project.client = req.body.client;
@@ -98,7 +100,7 @@ router.route('/:id').put((req, res) => {
                 var category = await Category.findById(item.id);
                 category.projects.push({
                     id : project._id,
-                    projectTitle : project._id,
+                    projectTitle : project.projectTitle,
                     projectImageLink : project.projectImageLink,
                     client : project.client,
                     industry : project.industry,
