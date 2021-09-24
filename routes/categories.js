@@ -14,13 +14,12 @@ router.route('/').post((req, res) => {
     const subTitle = req.body.subTitle;
     const gradientColor = req.body.gradientColor;
     const imageLink = req.body.imageLink;
-    const videoLink = req.body.videoLink;
     const sectionQuote = req.body.sectionQuote;
     const sectionTitle = req.body.sectionTitle;
     const sectionDescription = req.body.sectionDescription;
     const projects = req.body.projects;
 
-    const newCategory = new Category({_id,title,subTitle,gradientColor,imageLink,videoLink,sectionQuote,sectionTitle,sectionDescription,projects});
+    const newCategory = new Category({_id,title,subTitle,gradientColor,imageLink,sectionQuote,sectionTitle,sectionDescription,projects});
 
     newCategory.save()
         .then((category) => res.json(category))
@@ -54,7 +53,6 @@ router.route('/:id').put((req, res) => {
             category.subTitle = req.body.subTitle;
             category.gradientColor = req.body.gradientColor;
             category.imageLink = req.body.imageLink;
-            category.videoLink = req.body.videoLink;
             category.sectionQuote = req.body.sectionQuote;
             category.sectionTitle = req.body.sectionTitle;
             category.sectionDescription = req.body.sectionDescription;

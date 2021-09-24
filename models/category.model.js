@@ -8,7 +8,6 @@ const categorySchema = new Schema({
     subTitle: { type: String, required: true },
     gradientColor: { type: String, required: true },
     imageLink: { type: String, required: true },
-    videoLink: { type: String, required: true },
     sectionQuote: { type: String, required: true },
     sectionTitle: { type: String, required: true },
     sectionDescription: { type: String, required: true },
