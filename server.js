@@ -17,6 +17,7 @@ const testimonailsRouter = require('./routes/testimonials');
 const projectsRouter = require('./routes/projects')
 const homeRouter = require('./routes/home')
 const partnersRouter = require('./routes/partners')
+const membersRouter = require('./routes/members')
 
 app.use('/home', homeRouter);
 app.use('/slides', slidesRouter);
@@ -24,6 +25,7 @@ app.use('/categories', categoriesRouter);
 app.use('/testimonials', testimonailsRouter);
 app.use('/projects', projectsRouter);
 app.use('/partners', partnersRouter);
+app.use('/members', membersRouter);
 
 //Database Uri
 const CONNECTION_URL = process.env.ATLAS_URI;
